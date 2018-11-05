@@ -25,6 +25,8 @@ class MainViewController: UITableViewController {
     var nextNavigationBarData: NavigationBarData!
     
     @IBOutlet weak var nextNavigationBarTintColorText: UILabel!
+    @IBOutlet weak var nextNavigationTintColorText: UILabel!
+    @IBOutlet weak var nextNavigationBarTitleColorText: UILabel!
     @IBOutlet weak var nextNavigatioBarBackgroundImageColorText: UILabel!
     @IBOutlet weak var nextNavigationBarPrefersHiddenSwitch: UISwitch!
     @IBOutlet weak var nextNavigationBarPrefersShadowImageHiddenSwitch: UISwitch!
@@ -39,11 +41,15 @@ class MainViewController: UITableViewController {
         nextNavigationBarData = currentNavigationBarData
         
         nextNavigationBarTintColorText.text = nextNavigationBarData.barTintColor.rawValue
+        nextNavigationTintColorText.text = nextNavigationBarData.tintColor.rawValue
+        nextNavigationBarTitleColorText.text = nextNavigationBarData.barTitleColor.rawValue
         nextNavigatioBarBackgroundImageColorText.text = nextNavigationBarData.backgroundImageColor.rawValue
         nextNavigationBarPrefersHiddenSwitch.isOn = nextNavigationBarData.prefersHidden
         nextNavigationBarPrefersShadowImageHiddenSwitch.isOn = nextNavigationBarData.prefersShadowImageHidden
         
         navigationController?.navigationBar.barTintColor = currentNavigationBarData.barTintColor.toUIColor
+        navigationController?.navigationBar.tintColor = currentNavigationBarData.tintColor.toUIColor
+        navigationController?.navigationBar.titleTextAttributes = currentNavigationBarData.barTitleColor.toDic;
         navigationController?.navigationBar.setBackgroundImage(currentNavigationBarData.backgroundImageColor.toUIImage, for: .default)
         navigationController?.navigationBar.shadowImage = (currentNavigationBarData.prefersShadowImageHidden) ? UIImage() : nil
         
@@ -91,7 +97,7 @@ extension  MainViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch (indexPath.section, indexPath.row) {
-        case (0, 0), (0, 1):
+        case (0, 0), (0, 1), (0, 2), (0, 3):
             performSegue(withIdentifier: Constants.Segue.SetStyleIdentifier, sender: self)
         default:
             break
@@ -128,6 +134,20 @@ extension MainViewController {
                         self.nextNavigationBarTintColorText.text = $0.rawValue
                     }
                 case (0, 1):
+                    colorsArray = NavigationBarData.TintColorArray
+                    selectedIndex = colorsArray.index(of: NavigationBarBackgroundViewColor(rawValue: nextNavigationTintColorText.text!)!)
+                    block = {
+                        self.nextNavigationBarData.tintColor = $0
+                        self.nextNavigationTintColorText.text = $0.rawValue
+                    }
+                case (0, 2):
+                    colorsArray = NavigationBarData.BarTitleColorArray
+                    selectedIndex = colorsArray.index(of: NavigationBarBackgroundViewColor(rawValue: nextNavigationBarTitleColorText.text!)!)
+                    block = {
+                        self.nextNavigationBarData.barTitleColor = $0
+                        self.nextNavigationBarTitleColorText.text = $0.rawValue
+                    }
+                case (0, 3):
                     colorsArray = NavigationBarData.BackgroundImageColorArray
                     selectedIndex = colorsArray.index(of: NavigationBarBackgroundViewColor(rawValue: nextNavigatioBarBackgroundImageColorText.text!)!)
                     block = {

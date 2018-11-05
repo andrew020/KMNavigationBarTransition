@@ -11,9 +11,13 @@ import UIKit
 struct NavigationBarData {
     
     static let BarTintColorArray: [NavigationBarBackgroundViewColor] = [.Cyan, .Yellow, .Green, .Orange, .lightGray, .NoValue]
+    static let TintColorArray: [NavigationBarBackgroundViewColor] = [.Black, .White]
+    static let BarTitleColorArray: [NavigationBarBackgroundViewColor] = [.Black, .White]
     static let BackgroundImageColorArray: [NavigationBarBackgroundViewColor] = [.NoValue, .Transparent, .Cyan, .Yellow, .Green, .Orange, .lightGray]
     
     var barTintColor = NavigationBarData.BarTintColorArray.first!
+    var tintColor = NavigationBarData.TintColorArray.first!
+    var barTitleColor = NavigationBarData.BarTitleColorArray.first!
     var backgroundImageColor = NavigationBarData.BackgroundImageColorArray.first!
     var prefersHidden = false
     var prefersShadowImageHidden = false
@@ -26,6 +30,8 @@ enum NavigationBarBackgroundViewColor: String {
     case Green
     case Orange
     case lightGray
+    case White
+    case Black
     case Transparent
     case NoValue = "No Value"
     
@@ -41,8 +47,23 @@ enum NavigationBarBackgroundViewColor: String {
             return UIColor.orange
         case .lightGray:
             return UIColor.lightGray
+        case .White:
+            return UIColor.white
+        case .Black:
+            return UIColor.black
         default:
             return nil
+        }
+    }
+    
+    var toDic: [String: Any]? {
+        switch self {
+        default:
+            if let color = toUIColor {
+                return [NSFontAttributeName: UIFont.systemFont(ofSize: 20), NSForegroundColorAttributeName: color]
+            } else {
+                return nil
+            }
         }
     }
     

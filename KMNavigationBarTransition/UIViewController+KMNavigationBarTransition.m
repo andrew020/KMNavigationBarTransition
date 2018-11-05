@@ -72,6 +72,8 @@
     UIViewController *transitionViewController = self.navigationController.km_transitionContextToViewController;
     if (self.km_transitionNavigationBar) {
         self.navigationController.navigationBar.barTintColor = self.km_transitionNavigationBar.barTintColor;
+        self.navigationController.navigationBar.tintColor = self.km_transitionNavigationBar.tintColor;
+        self.navigationController.navigationBar.titleTextAttributes = self.km_transitionNavigationBar.titleTextAttributes;
         [self.navigationController.navigationBar setBackgroundImage:[self.km_transitionNavigationBar backgroundImageForBarMetrics:UIBarMetricsDefault] forBarMetrics:UIBarMetricsDefault];
         [self.navigationController.navigationBar setShadowImage:self.km_transitionNavigationBar.shadowImage];
         if (!transitionViewController || [transitionViewController isEqual:self]) {
@@ -133,6 +135,8 @@
         bar.translucent = self.navigationController.navigationBar.translucent;
     }
     bar.barTintColor = self.navigationController.navigationBar.barTintColor;
+    bar.tintColor = self.navigationController.navigationBar.tintColor;
+    bar.titleTextAttributes = self.navigationController.navigationBar.titleTextAttributes;
     [bar setBackgroundImage:[self.navigationController.navigationBar backgroundImageForBarMetrics:UIBarMetricsDefault] forBarMetrics:UIBarMetricsDefault];
     bar.shadowImage = self.navigationController.navigationBar.shadowImage;
     [self.km_transitionNavigationBar removeFromSuperview];
